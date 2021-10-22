@@ -250,6 +250,11 @@ func TimeSinceUnix(then TimeStamp, lang string) template.HTML {
 	return htmlTimeSinceUnix(then, TimeStamp(time.Now().Unix()), lang)
 }
 
+func OlderThan(when time.Time, minutes int) bool {
+	d := time.Duration(-minutes) * time.Minute
+	return when.Before(time.Now().Add(d))
+}
+
 func htmlTimeSinceUnix(then, now TimeStamp, lang string) template.HTML {
 	return template.HTML(fmt.Sprintf(`<span class="time-since" title="%s">%s</span>`,
 		then.FormatInLocation(GetTimeFormat(lang), setting.DefaultUILocation),

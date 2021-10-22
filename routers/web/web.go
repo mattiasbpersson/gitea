@@ -930,6 +930,8 @@ func RegisterRoutes(m *web.Route) {
 
 		m.Group("/branches", func() {
 			m.Get("", repo.Branches)
+			m.Get("/active", repo.BranchesActive)
+			m.Get("/stale", repo.BranchesStale)
 		}, repo.MustBeNotEmpty, context.RepoRef(), reqRepoCodeReader)
 
 		m.Group("/blob_excerpt", func() {

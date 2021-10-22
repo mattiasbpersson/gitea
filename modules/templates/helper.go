@@ -98,6 +98,7 @@ func NewFuncMap() []template.FuncMap {
 		"TimeSince":     timeutil.TimeSince,
 		"TimeSinceUnix": timeutil.TimeSinceUnix,
 		"RawTimeSince":  timeutil.RawTimeSince,
+		"OlderThan":     timeutil.OlderThan,
 		"FileSize":      base.FileSize,
 		"PrettyNumber":  base.PrettyNumber,
 		"Subtract":      base.Subtract,

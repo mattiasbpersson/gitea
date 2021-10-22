@@ -45,6 +45,16 @@ type Branch struct {
 	MergeMovedOn      bool
 }
 
+func BranchesActive(ctx *context.Context) {
+	ctx.Data["OnlyActive"] = true
+	Branches(ctx)
+}
+
+func BranchesStale(ctx *context.Context) {
+	ctx.Data["OnlyStale"] = true
+	Branches(ctx)
+}
+
 // Branches render repository branch page
 func Branches(ctx *context.Context) {
 	ctx.Data["Title"] = "Branches"
