@@ -28,7 +28,8 @@ import (
 )
 
 const (
-	tplBranch base.TplName = "repo/branch/list"
+	tplListBranch base.TplName = "repo/branch/list"
+	tplShowBranch base.TplName = "repo/branch/show"
 )
 
 // Branch contains the branch information
@@ -45,13 +46,18 @@ type Branch struct {
 	MergeMovedOn      bool
 }
 
-func BranchesActive(ctx *context.Context) {
+func ActiveBranches(ctx *context.Context) {
 	ctx.Data["OnlyActive"] = true
 	Branches(ctx)
 }
 
-func BranchesStale(ctx *context.Context) {
+func StaleBranches(ctx *context.Context) {
 	ctx.Data["OnlyStale"] = true
+	Branches(ctx)
+}
+
+func AllBranches(ctx *context.Context) {
+	ctx.Data["All"] = true
 	Branches(ctx)
 }
 
@@ -88,7 +94,7 @@ func Branches(ctx *context.Context) {
 	pager.SetDefaultParams(ctx)
 	ctx.Data["Page"] = pager
 
-	ctx.HTML(http.StatusOK, tplBranch)
+	ctx.HTML(http.StatusOK, tplShowBranch)
 }
 
 // DeleteBranchPost responses for delete merged branch
