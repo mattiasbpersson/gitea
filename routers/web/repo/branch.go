@@ -19,6 +19,7 @@ import (
 	"code.gitea.io/gitea/modules/repofiles"
 	repo_module "code.gitea.io/gitea/modules/repository"
 	"code.gitea.io/gitea/modules/setting"
+	"code.gitea.io/gitea/modules/timeutil"
 	"code.gitea.io/gitea/modules/util"
 	"code.gitea.io/gitea/modules/web"
 	"code.gitea.io/gitea/routers/utils"
@@ -37,6 +38,7 @@ type Branch struct {
 	Name              string
 	Commit            *git.Commit
 	IsProtected       bool
+	IsActive          bool
 	IsDeleted         bool
 	IsIncluded        bool
 	DeletedBranch     *models.DeletedBranch
@@ -310,10 +312,14 @@ func loadOneBranch(ctx *context.Context, rawBranch *git.Branch, protectedBranche
 	}
 
 	isIncluded := divergence.Ahead == 0 && ctx.Repo.Repository.DefaultBranch != branchName
+
+	isActive := timeutil.YoungerThan(commit.Committer.When, 45)
+
 	return &Branch{
 		Name:              branchName,
 		Commit:            commit,
 		IsProtected:       isProtected,
+		IsActive:          isActive,
 		IsIncluded:        isIncluded,
 		CommitsAhead:      divergence.Ahead,
 		CommitsBehind:     divergence.Behind,

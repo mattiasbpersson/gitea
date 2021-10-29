@@ -250,9 +250,9 @@ func TimeSinceUnix(then TimeStamp, lang string) template.HTML {
 	return htmlTimeSinceUnix(then, TimeStamp(time.Now().Unix()), lang)
 }
 
-func OlderThan(when time.Time, minutes int) bool {
+func YoungerThan(when time.Time, minutes int) bool {
 	d := time.Duration(-minutes) * time.Minute
-	return when.Before(time.Now().Add(d))
+	return when.After(time.Now().Add(d))
 }
 
 func htmlTimeSinceUnix(then, now TimeStamp, lang string) template.HTML {

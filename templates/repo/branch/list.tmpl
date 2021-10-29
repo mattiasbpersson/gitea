@@ -68,8 +68,7 @@
 				<table class="ui very basic striped fixed table single line">
 					<tbody>
 						{{range .Branches}}
-							{{if and (ne .Name $.DefaultBranch ) (not (OlderThan .Commit.Committer.When 200))}}
-							<!-- if and (ne .Name $.DefaultBranch) (not (OlderThan .Commit.Committer.When 45))  -->
+							{{if and (ne .Name $.DefaultBranch ) (.IsActive)}}
 								<tr>
 									<td class="six wide">
 									{{if .IsDeleted}}
@@ -165,8 +164,7 @@
 				<table class="ui very basic striped fixed table single line">
 					<tbody>
 						{{range .Branches}}
-							{{if and (ne .Name $.DefaultBranch ) (OlderThan .Commit.Committer.When 200)}}
-							<!-- if and (ne .Name $.DefaultBranch) (not (OlderThan .Commit.Committer.When 45))  -->
+							{{if and (ne .Name $.DefaultBranch ) (not .IsActive)}}
 								<tr>
 									<td class="six wide">
 									{{if .IsDeleted}}
