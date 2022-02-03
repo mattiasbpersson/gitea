@@ -6,6 +6,9 @@
 		<div class="ui mobile reversed stackable grid">
 			<div class="ui container ten wide column">
 				{{template "user/heatmap" .}}
+				<h2>Branches</h2>
+				{{template "user/dashboard/branches" .}}
+				<h2>Feeds</h2>
 				{{template "user/dashboard/feeds" .}}
 			</div>
 			{{template "user/dashboard/repolist" .}}
